@@ -285,7 +285,27 @@ int rbtree_erase(rbtree *t, node_t *p) {
   return 0;
 }
 
+void inorder_rbtree(const rbtree *t, node_t *cur, key_t *arr, size_t n, size_t *cnt) {
+    if(cur == t->nil) {
+        return;
+    }
+    inorder_rbtree(t, cur->left, arr, n, cnt);
+    if(*cnt < n) {
+        arr[(*cnt)++] = cur->key;
+    } else {
+        return;
+    }
+    inorder_rbtree(t, cur->right, arr, n, cnt);
+}
+
 int rbtree_to_array(const rbtree *t, key_t *arr, const size_t n) {
   // TODO: implement to_array
-  return 0;
+    node_t *cur = t->root;
+    if(cur == t-> nil) {
+        return 0;
+    }
+    
+    size_t cnt = 0;
+    inorder_rbtree(t, t->root, arr, n, &cnt);
+    return 0;
 }
